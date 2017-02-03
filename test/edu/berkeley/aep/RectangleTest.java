@@ -28,4 +28,10 @@ public class RectangleTest {
     public void rectangleWithNegativeLengthShouldNotBeCreatable() {
         Rectangle rectangle = new Rectangle(2, -4);
     }
+
+    @Test
+    public void squareWithSideTwoShouldHaveAreaFour() {
+        Rectangle square = Rectangle.createSquare(2);
+        assertEquals(4, square.area());
+    }
 }

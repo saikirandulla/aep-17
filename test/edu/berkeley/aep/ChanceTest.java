@@ -31,4 +31,18 @@ public class ChanceTest {
         Chance dieThrow = new Chance(1.0/6.0);
         assertEquals(new Chance(5.0/6.0), dieThrow.not());
     }
+
+    @Test
+    public void halfAndHalfShouldEqualOneQuarter() {
+        Chance half = new Chance(0.5);
+        Chance otherHalf = new Chance(0.5);
+        assertEquals(new Chance(0.25), half.and(otherHalf));
+    }
+
+    @Test
+    public void halfOrHalfShouldEqualThreeQuarters() {
+        Chance half = new Chance(0.5);
+        Chance otherHalf = new Chance(0.5);
+        assertEquals(new Chance(0.75), half.or(otherHalf));
+    }
 }

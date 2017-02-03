@@ -15,4 +15,8 @@ public class Rectangle {
     public int area() {
         return width * length;
     }
+
+    public static Rectangle createSquare(int side) {
+        return new Rectangle(side, side);
+    }
 }

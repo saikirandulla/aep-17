@@ -19,4 +19,17 @@ public class Chance {
     public int hashCode() {
         return Double.hashCode(probability);
     }
+
+    public Chance not() {
+        return new Chance(1 - probability);
+    }
+
+    public Chance and(Chance other) {
+        return new Chance(probability * other.probability);
+    }
+
+    public Chance or(Chance other) {
+        // Uses De Morgan's Law
+        return (not().and(other.not())).not();
+    }
 }
