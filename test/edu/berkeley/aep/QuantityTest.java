@@ -3,6 +3,7 @@ package edu.berkeley.aep;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 public class QuantityTest {
     @Test
@@ -40,4 +41,38 @@ public class QuantityTest {
         assertEquals(oneCup, eightOunces);
     }
 
+    @Test
+    public void twoInchesPlusTwoInchesShouldEqualFourInches() {
+        Quantity twoInches = new Quantity(2, Unit.INCHES);
+        Quantity fourInches = new Quantity(4, Unit.INCHES);
+        assertEquals(fourInches, twoInches.add(twoInches));
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void twoTablespoonsPlusOneInchShouldThrowException() {
+        Quantity twoTablespoons = new Quantity(2, Unit.TABLESPOON);
+        Quantity twoInches = new Quantity(2, Unit.INCHES);
+        twoInches.add(twoTablespoons);
+    }
+
+    @Test
+    public void twoHundredAndTwelveFahrenheitShouldEqualOneHundredCelsius() {
+        Quantity twoHundredAndTwelveFahrenheit = new Quantity(212, Unit.FAHRENHEIT);
+        Quantity oneHundredCelsius = new Quantity(100, Unit.CELSIUS);
+        assertEquals(oneHundredCelsius, twoHundredAndTwelveFahrenheit);
+    }
+
+    @Test
+    public void thirtyTwoFahrenheitShouldEqualZeroCelsius() {
+        Quantity thirtyTwoFahrenheit = new Quantity(32, Unit.FAHRENHEIT);
+        Quantity zeroCelsius = new Quantity(0, Unit.CELSIUS);
+        assertEquals(thirtyTwoFahrenheit, zeroCelsius);
+    }
+
+    @Test
+    public void equalsShouldNotThrowAnException() {
+        Quantity twoTablespoons = new Quantity(2, Unit.TABLESPOON);
+        Quantity twoInches = new Quantity(2, Unit.INCHES);
+        assertNotEquals(twoTablespoons, twoInches);
+    }
 }

@@ -20,11 +20,16 @@ public class Quantity {
         if (this == other) return true;
         if (!(other instanceof Quantity)) return false;
         Quantity otherQuantity = (Quantity) other;
-        return unit.toBaseUnit(size) == otherQuantity.unit.toBaseUnit(otherQuantity.size);
+        if (!unit.comparableWith(((Quantity) other).unit)) return false;
+        return size == otherQuantity.unit.convert(otherQuantity.size, unit);
     }
 
     @Override
     public String toString() {
         return size + " " + unit ;
+    }
+
+    public Quantity add(Quantity other) {
+        return new Quantity(size + other.unit.convert(other.size, unit), unit);
     }
 }
