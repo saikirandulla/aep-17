@@ -4,75 +4,76 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
 
 public class QuantityTest {
     @Test
     public void threeFeetShouldEqualOneYard() {
-        Quantity threeFeet = new Quantity(3, Unit.FOOT);
-        Quantity oneYard = new Quantity(1, Unit.YARD);
+        ArithmeticQuantity threeFeet = new ArithmeticQuantity(3, Unit.FOOT);
+        ArithmeticQuantity oneYard = new ArithmeticQuantity(1, Unit.YARD);
         assertEquals(threeFeet, oneYard);
     }
 
     @Test
     public void oneMileShouldEqual1760Yard() {
-        Quantity oneMile = new Quantity(1, Unit.MILE);
-        Quantity seventeenSixtyYards = new Quantity(1760, Unit.YARD);
+        ArithmeticQuantity oneMile = new ArithmeticQuantity(1, Unit.MILE);
+        ArithmeticQuantity seventeenSixtyYards = new ArithmeticQuantity(1760, Unit.YARD);
         assertEquals(oneMile, seventeenSixtyYards);
     }
 
     @Test
     public void oneTablespoonShouldEqualThreeTeaspoons() {
-        Quantity oneTablespoon = new Quantity(1, Unit.TABLESPOON);
-        Quantity threeTeaspoons = new Quantity(3, Unit.TEASPOON);
+        ArithmeticQuantity oneTablespoon = new ArithmeticQuantity(1, Unit.TABLESPOON);
+        ArithmeticQuantity threeTeaspoons = new ArithmeticQuantity(3, Unit.TEASPOON);
         assertEquals(oneTablespoon, threeTeaspoons);
     }
 
     @Test
     public void oneOunceShouldEqualTwoTablespoons() {
-        Quantity onceOunce = new Quantity(1, Unit.OUNCE);
-        Quantity twoTablespoons = new Quantity(2, Unit.TABLESPOON);
+        ArithmeticQuantity onceOunce = new ArithmeticQuantity(1, Unit.OUNCE);
+        ArithmeticQuantity twoTablespoons = new ArithmeticQuantity(2, Unit.TABLESPOON);
         assertEquals(onceOunce, twoTablespoons);
     }
 
     @Test
     public void eightOuncesShouldEqualOneCup() {
-        Quantity oneCup = new Quantity(1, Unit.CUP);
-        Quantity eightOunces = new Quantity(8, Unit.OUNCE);
+        ArithmeticQuantity oneCup = new ArithmeticQuantity(1, Unit.CUP);
+        ArithmeticQuantity eightOunces = new ArithmeticQuantity(8, Unit.OUNCE);
         assertEquals(oneCup, eightOunces);
     }
 
     @Test
     public void twoInchesPlusTwoInchesShouldEqualFourInches() {
-        Quantity twoInches = new Quantity(2, Unit.INCHES);
-        Quantity fourInches = new Quantity(4, Unit.INCHES);
+        ArithmeticQuantity twoInches = new ArithmeticQuantity(2, Unit.INCHES);
+        ArithmeticQuantity fourInches = new ArithmeticQuantity(4, Unit.INCHES);
         assertEquals(fourInches, twoInches.add(twoInches));
     }
 
     @Test(expected = RuntimeException.class)
     public void twoTablespoonsPlusOneInchShouldThrowException() {
-        Quantity twoTablespoons = new Quantity(2, Unit.TABLESPOON);
-        Quantity twoInches = new Quantity(2, Unit.INCHES);
+        ArithmeticQuantity twoTablespoons = new ArithmeticQuantity(2, Unit.TABLESPOON);
+        ArithmeticQuantity twoInches = new ArithmeticQuantity(2, Unit.INCHES);
         twoInches.add(twoTablespoons);
     }
 
     @Test
     public void twoHundredAndTwelveFahrenheitShouldEqualOneHundredCelsius() {
-        Quantity twoHundredAndTwelveFahrenheit = new Quantity(212, Unit.FAHRENHEIT);
-        Quantity oneHundredCelsius = new Quantity(100, Unit.CELSIUS);
+        ScaledQuantity twoHundredAndTwelveFahrenheit = new ScaledQuantity(212, Unit.FAHRENHEIT);
+        ScaledQuantity oneHundredCelsius = new ScaledQuantity(100, Unit.CELSIUS);
         assertEquals(oneHundredCelsius, twoHundredAndTwelveFahrenheit);
     }
 
     @Test
     public void thirtyTwoFahrenheitShouldEqualZeroCelsius() {
-        Quantity thirtyTwoFahrenheit = new Quantity(32, Unit.FAHRENHEIT);
-        Quantity zeroCelsius = new Quantity(0, Unit.CELSIUS);
+        ScaledQuantity thirtyTwoFahrenheit = new ScaledQuantity(32, Unit.FAHRENHEIT);
+        ScaledQuantity zeroCelsius = new ScaledQuantity(0, Unit.CELSIUS);
         assertEquals(thirtyTwoFahrenheit, zeroCelsius);
     }
 
     @Test
     public void equalsShouldNotThrowAnException() {
-        Quantity twoTablespoons = new Quantity(2, Unit.TABLESPOON);
-        Quantity twoInches = new Quantity(2, Unit.INCHES);
+        ScaledQuantity twoTablespoons = new ScaledQuantity(2, Unit.TABLESPOON);
+        ScaledQuantity twoInches = new ScaledQuantity(2, Unit.INCHES);
         assertNotEquals(twoTablespoons, twoInches);
     }
 }
