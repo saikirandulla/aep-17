@@ -1,11 +1,10 @@
 package edu.berkeley.aep;
 
-/**
- * Created by jezhumble on 2/23/17.
- */
+// Understands arithmetical measurements in a particular unit.
 public class ScaledQuantity {
-    protected final int size;
-    protected final Unit unit;
+
+    final int size;
+    final Unit unit;
 
     public ScaledQuantity(int size, Unit unit) {
         this.size = size;
@@ -29,5 +28,9 @@ public class ScaledQuantity {
     @Override
     public String toString() {
         return size + " " + unit ;
+    }
+
+    public boolean betterThan(ScaledQuantity other) {
+        return size > other.unit.convert(other.size, unit);
     }
 }

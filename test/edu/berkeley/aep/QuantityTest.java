@@ -2,6 +2,7 @@ package edu.berkeley.aep;
 
 import org.junit.Test;
 
+import static edu.berkeley.aep.Unit.INCHES;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
@@ -44,15 +45,15 @@ public class QuantityTest {
 
     @Test
     public void twoInchesPlusTwoInchesShouldEqualFourInches() {
-        ArithmeticQuantity twoInches = new ArithmeticQuantity(2, Unit.INCHES);
-        ArithmeticQuantity fourInches = new ArithmeticQuantity(4, Unit.INCHES);
+        ArithmeticQuantity twoInches = new ArithmeticQuantity(2, INCHES);
+        ArithmeticQuantity fourInches = new ArithmeticQuantity(4, INCHES);
         assertEquals(fourInches, twoInches.add(twoInches));
     }
 
     @Test(expected = RuntimeException.class)
     public void twoTablespoonsPlusOneInchShouldThrowException() {
         ArithmeticQuantity twoTablespoons = new ArithmeticQuantity(2, Unit.TABLESPOON);
-        ArithmeticQuantity twoInches = new ArithmeticQuantity(2, Unit.INCHES);
+        ArithmeticQuantity twoInches = new ArithmeticQuantity(2, INCHES);
         twoInches.add(twoTablespoons);
     }
 
@@ -73,7 +74,26 @@ public class QuantityTest {
     @Test
     public void equalsShouldNotThrowAnException() {
         ScaledQuantity twoTablespoons = new ScaledQuantity(2, Unit.TABLESPOON);
-        ScaledQuantity twoInches = new ScaledQuantity(2, Unit.INCHES);
+        ScaledQuantity twoInches = new ScaledQuantity(2, INCHES);
         assertNotEquals(twoTablespoons, twoInches);
+    }
+
+    @Test
+    public void tenCelsiusShouldBeBetterThanThirtyTwoFahrenheit() {
+        ScaledQuantity thirtyTwoFahrenheit = new ScaledQuantity(32, Unit.FAHRENHEIT);
+        ScaledQuantity tenCelsius = new ScaledQuantity(10, Unit.CELSIUS);
+        assertTrue(tenCelsius.betterThan(thirtyTwoFahrenheit));
+
+    }
+
+    @Test
+    public void shouldReturnBestQuantityFromArray() {
+        assertEquals(new ScaledQuantity(10, INCHES),
+                new Bester(new ScaledQuantity(2, INCHES), new ScaledQuantity(10, INCHES), new ScaledQuantity(5, INCHES)).best());
+    }
+
+    @Test(expected = ArrayIndexOutOfBoundsException.class)
+    public void bestOfArraySizeZeroShouldThrowException() {
+        assertEquals(new ScaledQuantity(1, Unit.INCHES), new Bester().best());
     }
 }
